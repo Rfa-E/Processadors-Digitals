@@ -42,8 +42,8 @@ delay(20);
 }
 ```
 ### **- Funcionamiento**
-![](Practica03_BT.PNG)
-![](Practica03_Movil.JPG)
+![](Practica03_BT.png)
+![](Practica03_Movil.jpg)
 ## **Código completo**
 ```cpp
 #include <Arduino.h>
