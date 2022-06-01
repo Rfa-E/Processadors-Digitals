@@ -1,13 +1,13 @@
 # *Proyecto Final. Altavoz bluetooth con matriz led*
 ## **Introducción**
-En este proyecto mostrare como e realizado un altavoz bluetooth con una matriz led interactiva con un Microprocesador ESP32. Mostrare como establecer la conexion necesaria para que el procesador sea un dispositivo de audio, y la matriz de leds interactue con el sonido.
+En este proyecto mostraré como he realizado un altavoz bluetooth con una matriz led interactiva con un Microprocesador ESP32. Mostraré como establecer la conexión necesaria para que el procesador sea un dispositivo de audio, y la matriz de leds interactúe con el sonido.
 ## **Hardware**
 * ESP32-Wroom-32.
-* DAC de audiio MAX98357 (I2S).
+* DAC de audio MAX98357 (I2S).
 * Altavoz pasivo de 3 Watts y 4 omhs.
 * Matriz de LED WS2812B-64 (8x8).
 ## **Montaje y esquemas del circuito**
-Cada una de las fases del proyecto y por las que a pasado las tienen en 3 videos diferentes colgados en el Github, a posteriori aqui les voy a mostrar el esquema teorico de conexiones y como se planteo la soldadura de los componentes.
+Cada una de las fases del proyecto y por las que ha pasado las tienen en 4 videos diferentes colgados en el GitHub, a posteriori aquí les voy a mostrar el esquema teórico de conexiones y como se planteó la soldadura de los componentes.
 
 ![](AltavozLed_esquemático.png)
 ![](AltavozLed_PCB.png)
@@ -50,7 +50,7 @@ BluetoothA2DPSink a2dp_sink;
 arduinoFFT FFT = arduinoFFT();
 /* ------------------------------------------------------------- */
 ```
-### **- Iniciacion de variables**
+### **- Iniciación de variables**
 En este paso iniciaremos diferentes parametros para el control del sonido y necesarios para las funciones FFT para realizar la interacion de los leds con el audio.
 
 Iniciamos una variable de tipo "int" con valor fijo de 39. Posteriormente, creamos un controlador de queue con la funcion "QueueHandle_t", y dos variables int de 16 bits, para guardar el sample left & right.
@@ -77,9 +77,9 @@ uint8_t hueOffset = 0;
 /* ------------------------------------------------------------- */
 ```
 ### **- Configuración de sonido**
-La configuracion del audio la iniciaremos con dos constantes estaticas, una para los pines y una base para el audio. En la configuracion de los pines estableceremos la conexion de cada una de las funciones con los pines ya definidos. En la configuracion del Bluetooth estableceremos el modo, la velocidad, los bits, el formato del canal de salida y el tipo de comunicacion, etc.
+La configuración del audio la iniciaremos con dos constantes estáticas, una para los pines y una base para el audio. En la configuración de los pines estableceremos la conexión de cada una de las funciones con los pines ya definidos. En la configuración del Bluetooth estableceremos el modo, la velocidad, los bits, el formato del canal de salida y el tipo de comunicación, etc.
 
-Posteriormente estableceremos una variable booleana para establecer si el dispositivo esta reproduciendo audio, y un objeto que lo indique. Tambien, crearemos otra variable booleana para indicar si el dispositivo esta conectado.
+Posteriormente, estableceremos una variable booleana para establecer si el dispositivo está reproduciendo audio, y un objeto que lo indique. También, crearemos otra variable booleana para indicar si el dispositivo está conectado.
 ```cpp
 /* ------------------------------------------------------------- */
 // Audio Configuration
@@ -113,7 +113,7 @@ esp_a2d_audio_state_t currentAudioState = ESP_A2D_AUDIO_STATE_REMOTE_SUSPEND;
 bool bleDeviceConnected = false;
 /* ------------------------------------------------------------- */
 ```
-### **- Index de la Matriz led**
+### **- Índice de la Matriz led**
 La siguiente función convierte las coordenadas x/y en el rango {0..7}/{0..7} como se muestra a continuación en un índice LED en el rango {0..63}.
 ```cpp
 /* ------------------------------------------------------------- */
@@ -128,7 +128,7 @@ uint8_t getLedIndex(uint8_t x, uint8_t y) {
 /* ------------------------------------------------------------- */
 ```
 ### **- Bandas de Audio**
-En el siguiente "void" crearemos las bandas de audio para la pantalla interactiva con el sonido, de forma en la que separaremos en diferentes frequencias la matriz de leds.
+En el siguiente "void" crearemos las bandas de audio para la pantalla interactiva con el sonido, de forma en la que separaremos en diferentes frecuencias la matriz de leds.
 ```cpp
 /* ------------------------------------------------------------- */
 void createBands(int i, int dsize) 
@@ -161,7 +161,7 @@ void createBands(int i, int dsize)
 /* ------------------------------------------------------------- */
 ```
 ### **- Render del FFT**
-En este modulo realizaremos los calculos necesarios con la funciones de "ArduinoFFT" para realizar la pantalla interactiva con el audio.
+En este módulo realizaremos los cálculos necesarios con la función de "ArduinoFFT" para realizar la pantalla interactiva con el audio.
 ```cpp
 /* ------------------------------------------------------------- */
 void renderFFT(void *parameter) {
@@ -213,8 +213,8 @@ void renderFFT(void *parameter) {
 }
 /* ------------------------------------------------------------- */
 ```
-### **- Modulo de iconos**
-En este modulo se calcula y establece el brillo de los leds, y posteriormente mediante un iterador "for" para establecer cada led del dibujo.
+### **- Módulo de iconos**
+En este módulo se calcula y establece el brillo de los leds, y posteriormente mediante un iterador "for" para establecer cada led del dibujo.
 ```cpp
 /* ------------------------------------------------------------- */
 void drawIcon (const uint32_t *icon)
@@ -234,8 +234,8 @@ void drawIcon (const uint32_t *icon)
 }
 /* ------------------------------------------------------------- */
 ```
-### **- Modulo de datos de aduio**
-En este modulo solamente prepara las muestras de audio que recibe del bluetooth, solo si la cola esta vacia. Una vez comprobado que no hay ningun dato en la cola, se agregan datos con un iterador "for", separando los datos introducidos a traves de un parametro int de 16 bits, en muestras del lado izquierdo y derecho. Al finalizar el bucle for, se envia al proceso incorporado en el core 1 la informacion para que pueda empezar.
+### **- Módulo de datos de aduio**
+En este módulo solamente prepara las muestras de audio que recibe del bluetooth, solo si la cola está vacía. Una vez comprobado que no hay ningún dato en la cola, se agregan datos con un iterador "for", separando los datos introducidos a través de un parámetro int de 16 bits, en muestras del lado izquierdo y derecho. Al finalizar el bucle for, se envía al proceso incorporado en el core 1 la información para que pueda empezar.
 ```cpp
 /* ------------------------------------------------------------- */
 void audio_data_callback(const uint8_t *data, uint32_t len)
@@ -261,8 +261,8 @@ void audio_data_callback(const uint8_t *data, uint32_t len)
 }
 /* ------------------------------------------------------------- */
 ```
-### **- Modulo de conexion Bluetooth**
-Este modulo consta simplemte de un if y un else, debido a que solo se utiliza para darle un nuevo valor a la variable previamente asignada como "bleDeviceConnected". Comprobamos el estado del dispositivo con la siguiente funcion "ESP_A2D_CONNECTION_STATE_CONNECTED" si es igual al valor de "state" variaremos asignaremos a la variable booleana un valor de true, en caso contrario le asignaremos el valor de false.
+### **- Módulo de conexion Bluetooth**
+Este módulo consta simplemente de un if y un else, debido a que solo se utiliza para darle un nuevo valor a la variable previamente asignada como "bleDeviceConnected". Comprobamos el estado del dispositivo con la siguiente función "ESP_A2D_CONNECTION_STATE_CONNECTED" si es igual al valor de "state" variaremos asignaremos a la variable booleana un valor de true, en caso contrario le asignaremos el valor de false.
 ```cpp
 /* ------------------------------------------------------------- */
 void connection_state_changed(esp_a2d_connection_state_t state, void *)
@@ -280,7 +280,7 @@ void connection_state_changed(esp_a2d_connection_state_t state, void *)
 /* ------------------------------------------------------------- */
 ```
 ### **- Estructura del Setup**
-En el Setup iniciamos estableciendo la velocidad de comunicacion del dispositivo en 115200 ms, y realizamos la confinguracion del pushButton, continuamos definiendo los leds y sus parametros. Despues, asignamos a la cola "queue" los valores antes generados, haremos una comprobacion de que no este vacia, si la cola esta llena generamos una "Task" asignada a uno de los cores paraque efectue el modulo de RenderFFT. Para finalizar, aplicaremos las configuraciones de los pines y de audio al objeto de bluetooth, lo iniciamos con un nombre, y redirijimos el sonido que se emite al modulo "audio_data_callback" y el cambio de conexion al modulo "connection_state_changed".
+En el Setup iniciamos estableciendo la velocidad de comunicación del dispositivo en, 115200 ms, y realizamos la configuración del pushButton, continuamos definiendo los leds y sus parámetros. Después, asignamos a la cola "queue" los valores antes generados, haremos una comprobación de que no este vacía, si la cola esta llena generamos una "Task" asignada a uno de los cores para que efectúe el módulo de RenderFFT. Para finalizar, aplicaremos las configuraciones de los pines y de audio al objeto de bluetooth, lo iniciamos con un nombre, y redirigimos el sonido que se emite al módulo "audio_data_callback" y el cambio de conexión al módulo "connection_state_changed".
 ```cpp
 /* ------------------------------------------------------------- */
 void setup() 
@@ -318,7 +318,7 @@ void setup()
 /* ------------------------------------------------------------- */
 ```
 ### **- Estructura del Loop**
-En la estructura del Loop comenzaremos asignando a la variable de State el valor que no nos proporciona el objeto "a2dp_sink", despues comprobaremos si el estado habitual que esta asignado a false es distinto al de la variable State, en ese caso se le asignara a CurrentAudioState el valor de State. Despues de realizar este cambio, tenemos tres casos en una estructura Switch, que serviran para efectuar los cambios en los visuales de la matriz de leds.
+En la estructura del Loop comenzaremos asignando a la variable de State el valor que no nos proporciona el objeto "a2dp_sink", después comprobaremos si el estado habitual que está asignado a false es distinto al de la variable State, en ese caso se le asignará a CurrentAudioState el valor de State. Después de realizar este cambio, tenemos tres casos en una estructura Switch, que servirán para efectuar los cambios en los visuales de la matriz de leds.
 ```cpp
 /* ------------------------------------------------------------- */
 void loop() 
