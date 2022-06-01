@@ -7,7 +7,7 @@ En este proyecto mostrare como e realizado un altavoz bluetooth con una matriz l
 * Altavoz pasivo de 3 Watts y 4 omhs.
 * Matriz de LED WS2812B-64 (8x8).
 ## **Montaje y esquemas del circuito**
-Cada una de las fases del proyecto y por las que a pasado las tienen en 4 videos diferentes colgados en el Github, a posteriori aqui les voy a mostrar el esquema teorico de conexiones y como se planteo la soldadura de los componentes.
+Cada una de las fases del proyecto y por las que a pasado las tienen en 3 videos diferentes colgados en el Github, a posteriori aqui les voy a mostrar el esquema teorico de conexiones y como se planteo la soldadura de los componentes.
 
 ![](AltavozLed_esquemático.png)
 ![](AltavozLed_PCB.png)
