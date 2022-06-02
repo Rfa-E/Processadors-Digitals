@@ -43,8 +43,6 @@ graph LR
     E[Msg LED OFF] --> F[Wait 500 ms]
     F[Wait 500 ms] --> A[LED ON]
 ```
-## **Diagrama de tiempo**
-
 ## **Ejercicio Voluntario**
 Para la parte voluntaria leeremos el valor del sensor de temperatura interno y mostraremos el valor por el puerto serie. Realizaremos la medición en conjunto con la función de Blink.
 
