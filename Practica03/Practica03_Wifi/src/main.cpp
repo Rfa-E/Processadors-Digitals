@@ -4,8 +4,8 @@
 #include <Arduino.h>
 
 // SSID & Password
-const char* ssid = "MiFibra-2C06"; // Enter your SSID here
-const char* password = "UVtLn4Zh"; //Enter your Password here
+const char* ssid = "MiFibra"; // Enter your SSID here
+const char* password = "********"; //Enter your Password here
 
 AsyncWebServer server(80); // Object of WebServer(HTTP port, 80 is defult)
 
